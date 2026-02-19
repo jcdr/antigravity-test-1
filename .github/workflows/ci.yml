@@ -72,7 +72,7 @@ jobs:
     - name: Install Trunk
       run: cargo install --locked trunk
     - name: Build Web
-      run: trunk build --release
+      run: trunk build --release --bin egui_cross_platform
     - name: Upload WASM
       uses: actions/upload-artifact@v4
       with:
