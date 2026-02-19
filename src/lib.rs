@@ -49,6 +49,16 @@ impl eframe::App for TemplateApp {
 
             ui.separator();
 
+            ui.horizontal(|ui| {
+                ui.label("UI Scale: ");
+                let mut scale = ctx.pixels_per_point();
+                if ui.add(egui::Slider::new(&mut scale, 0.5..=3.0)).changed() {
+                    ctx.set_pixels_per_point(scale);
+                }
+            });
+
+            ui.separator();
+
             ui.add(egui::github_link_file!(
                 "https://github.com/emilk/eframe_template/blob/master/",
                 "Source code of this app"
