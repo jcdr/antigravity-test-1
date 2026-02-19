@@ -5,6 +5,8 @@ authors = ["Antigravity"]
 edition = "2021"
 rust-version = "1.81"
 
+[lib]
+crate-type = ["lib", "cdylib", "staticlib"] # lib for desktop, cdylib for android, staticlib for ios
 
 [dependencies]
 egui = "0.29"
