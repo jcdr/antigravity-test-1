@@ -21,6 +21,14 @@ impl TemplateApp {
         // This is also where you can customize the look and feel of egui using
         // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
 
+        #[cfg(target_arch = "wasm32")]
+        {
+            // Try to match the native scale if possible
+            if let Some(ppp) = cc.egui_ctx.native_pixels_per_point() {
+                cc.egui_ctx.set_pixels_per_point(ppp);
+            }
+        }
+
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
         if let Some(storage) = cc.storage {
@@ -46,16 +54,6 @@ impl eframe::App for TemplateApp {
             if ui.button("Increment").clicked() {
                 self.value += 1.0;
             }
-
-            ui.separator();
-
-            ui.horizontal(|ui| {
-                ui.label("UI Scale: ");
-                let mut scale = ctx.pixels_per_point();
-                if ui.add(egui::Slider::new(&mut scale, 0.5..=3.0)).changed() {
-                    ctx.set_pixels_per_point(scale);
-                }
-            });
 
             ui.separator();
 
