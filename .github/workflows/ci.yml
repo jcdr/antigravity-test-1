@@ -42,12 +42,12 @@ jobs:
       with:
         ndk-version: r26b
     - name: Build Android
-      run: cargo build --release --target aarch64-linux-android
+      run: cargo build --release --target aarch64-linux-android --lib
     - name: Upload APK (Partial)
       uses: actions/upload-artifact@v4
       with:
         name: android-binary
-        path: target/aarch64-linux-android/release/libegui_cross_platform.so
+        path: target/aarch64-linux-android/release/libegui_cross_platform_lib.so
 
   build-ios:
     runs-on: macos-latest
@@ -56,12 +56,12 @@ jobs:
     - name: Install Rust iOS target
       run: rustup target add aarch64-apple-ios
     - name: Build iOS
-      run: cargo build --release --target aarch64-apple-ios
+      run: cargo build --release --target aarch64-apple-ios --lib
     - name: Upload iOS binary
       uses: actions/upload-artifact@v4
       with:
         name: ios-binary
-        path: target/aarch64-apple-ios/release/libegui_cross_platform.a
+        path: target/aarch64-apple-ios/release/libegui_cross_platform_lib.a
 
   build-web:
     runs-on: ubuntu-latest

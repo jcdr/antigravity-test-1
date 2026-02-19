@@ -3,10 +3,13 @@ name = "egui_cross_platform"
 version = "0.1.0"
 authors = ["Antigravity"]
 edition = "2021"
-rust-version = "1.81"
-
 [lib]
+name = "egui_cross_platform_lib"
 crate-type = ["lib", "cdylib", "staticlib"] # lib for desktop, cdylib for android, staticlib for ios
+
+[[bin]]
+name = "egui_cross_platform"
+path = "src/main.rs"
 
 [dependencies]
 egui = "0.29"

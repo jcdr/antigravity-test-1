@@ -19,7 +19,7 @@ fn main() -> eframe::Result {
     eframe::run_native(
         "egui_cross_platform",
         native_options,
-        Box::new(|cc| Ok(Box::new(egui_cross_platform::TemplateApp::new(cc)))),
+        Box::new(|cc| Ok(Box::new(egui_cross_platform_lib::TemplateApp::new(cc)))),
     )
 }
 
@@ -43,7 +43,7 @@ fn main() {
             .start(
                 canvas,
                 web_options,
-                Box::new(|cc| Ok(Box::new(egui_cross_platform::TemplateApp::new(cc)))),
+                Box::new(|cc| Ok(Box::new(egui_cross_platform_lib::TemplateApp::new(cc)))),
             )
             .await;
 
