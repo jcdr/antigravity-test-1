@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Disable zooming on mobile: -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<head>
+    <title>Egui Cross-Platform</title>
+
+    <style>
+        html {
+            /* Remove touch delay: */
+            touch-action: preservation;
+        }
+
+        body {
+            /* Light mode background: */
+            background: #f0f0f0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                /* Dark mode background: */
+                background: #1b1b1b;
+            }
+        }
+
+        /* Allow canvas to fill entire web page: */
+        html,
+        body {
+            overflow: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Position canvas in center-top: */
+        canvas {
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+            position: absolute;
+            top: 0%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- The ID is used in the main.rs to start the app: -->
+    <canvas id="the_canvas_id"></canvas>
+</body>
+
+</html>

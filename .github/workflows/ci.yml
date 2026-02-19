@@ -1,0 +1,48 @@
+name: Rust CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-native:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libwayland-dev libxkbcommon-dev libegl1-mesa-dev libgles2-mesa-dev libdbus-1-dev libasound2-dev libpango1.0-dev libatk1.0-dev libgtk-3-dev
+    - name: Build
+      run: cargo build --verbose --release
+    - name: Upload binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: binary-${{ matrix.os }}
+        path: target/release/egui_cross_platform*
+
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Rust WASM target
+      run: rustup target add wasm32-unknown-unknown
+    - name: Install Trunk
+      run: cargo install --locked trunk
+    - name: Build Web
+      run: trunk build --release
+    - name: Upload WASM
+      uses: actions/upload-artifact@v4
+      with:
+        name: wasm-dist
+        path: dist/
