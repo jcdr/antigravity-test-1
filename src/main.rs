@@ -32,9 +32,16 @@ fn main() {
     let web_options = eframe::WebOptions::default();
 
     wasm_bindgen_futures::spawn_local(async {
+        use wasm_bindgen::JsCast as _;
+        let canvas = web_sys::window()
+            .and_then(|window| window.document())
+            .and_then(|document| document.get_element_by_id("the_canvas_id"))
+            .and_then(|element| element.dyn_into::<web_sys::HtmlCanvasElement>().ok())
+            .expect("failed to find 'the_canvas_id'");
+
         let start_result = eframe::WebRunner::new()
             .start(
-                "the_canvas_id", // hardcode it
+                canvas,
                 web_options,
                 Box::new(|cc| Ok(Box::new(egui_cross_platform::TemplateApp::new(cc)))),
             )
